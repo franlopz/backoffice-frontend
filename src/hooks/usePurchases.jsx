@@ -27,7 +27,15 @@ const usePurchases = () => {
 
   const getCsvPurchases = () => {
     let data = []
-    for (let purchase of filteredData) {
+    const result = purchases.filter(
+      (row) => row.documento !== "Consumidor Final"
+    )
+    if (result.length === 0) {
+      toast.error("No hay datos para descargar")
+      return false
+    }
+
+    for (let purchase of result) {
       data.push([
         formatDateES(purchase.fecha),
         purchase.tipoId,
@@ -115,10 +123,7 @@ const usePurchases = () => {
   }, [purchases])
 
   useEffect(() => {
-    console.log(filtersToApply)
-
-    let temp = purchases.filter((item) => {
-      //   if (filtersToApply.doc.length > 0 && filtersToApply.type > 0) {
+    let toFilter = purchases.filter((item) => {
       for (let filter of filtersToApply.doc) {
         if (item.documento === filter) {
           return true
@@ -134,8 +139,7 @@ const usePurchases = () => {
         return true
       }
     })
-    setFilteredData(temp)
-    console.log(temp)
+    setFilteredData(toFilter)
   }, [filtersToApply])
 
   const deletePurchase = async ({ id }) => {
@@ -206,29 +210,16 @@ const usePurchases = () => {
   }
 
   const filterData = (e, source) => {
-    console.log(e)
-    let docs = []
-    let types = []
+    let array = []
 
-    if (source === "doc") {
-      if (e.length === 0) {
-        setFiltersToApply({ ...filtersToApply, doc: [] })
-      }
-      e.map((value) => {
-        docs.push(value.value)
-        setFiltersToApply({ ...filtersToApply, doc: docs })
-      })
+    if (e.length === 0) {
+      setFiltersToApply({ ...filtersToApply, [source]: [] })
     }
+    e.map((item) => {
+      array.push(item.value)
 
-    if (source === "type") {
-      if (e.length === 0) {
-        setFiltersToApply({ ...filtersToApply, type: [] })
-      }
-      e.map((value) => {
-        types.push(value.value)
-        setFiltersToApply({ ...filtersToApply, type: types })
-      })
-    }
+      setFiltersToApply({ ...filtersToApply, [source]: array })
+    })
   }
 
   return {

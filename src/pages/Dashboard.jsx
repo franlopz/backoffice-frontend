@@ -34,12 +34,14 @@ ChartJS.register(
 
 const chartsStyle = "shadow-lg rounded-lg m-2 border bg-white"
 
+const ItemsColumnsToShow = ["producto", "precio", "cantidad", "porcentaje"]
+const paymentColumnsToShow = ["tipo", "pago", "iva"]
+
 const Dashboard = () => {
   const [dashboardData, fetchDashboardData] = useFetchDashboard()
   const [dateRange, setDateRange] = useState([new Date(), new Date()])
   const [startDate, endDate] = dateRange
   const ref = React.useRef()
-  console.log(dashboardData?.bytype)
   const options = ({ title, maintainAspectRatio = true }) => {
     return {
       responsive: true,
@@ -110,7 +112,11 @@ const Dashboard = () => {
             />
           </div>
           <div className="relative w-full">
-            <Table data={dashboardData?.bypayment} title="DETALLE DE PAGOS" />
+            <Table
+              data={dashboardData?.bypayment}
+              title="DETALLE DE PAGOS"
+              columnsToShow={paymentColumnsToShow}
+            />
           </div>
           <div className="relative w-full">
             {Object.keys(dashboardData?.bytype).length === 0 ? (
@@ -144,6 +150,7 @@ const Dashboard = () => {
             <Table
               data={dashboardData?.byitem}
               square={false}
+              columnsToShow={ItemsColumnsToShow}
               title="DETALLE DE PRODUCTOS"
             />
           </div>

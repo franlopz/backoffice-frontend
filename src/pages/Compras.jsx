@@ -195,7 +195,6 @@ const Compras = () => {
       attachmentId: 3,
       guardado: new Date().toISOString(),
     }
-    console.log(data)
     setTransactionsList((state) => [...state, data])
     localStorage.setItem("compras", JSON.stringify([...transactionsList, data]))
     setFormData((state) => ({ ...state, compra: "", iva: "" }))

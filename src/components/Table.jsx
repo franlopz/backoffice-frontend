@@ -1,5 +1,4 @@
 import React from "react"
-import usePurchases from "../hooks/usePurchases"
 import useTableData from "../hooks/useTableData"
 
 const Table = ({
@@ -29,10 +28,10 @@ const Table = ({
         <header className="px-5 py-4 border-b border-gray-100">
           <p className="font-bold text-gray-600 text-xs text-center">{title}</p>
         </header>
-        <div className="p-3 overflow-y-auto overflow-x-auto h-full">
+        <div className="px-3 overflow-y-auto overflow-x-auto h-full">
           {data.length > 0 ? (
             <table className="table-auto w-full ">
-              <thead className=" text-sm font-semibold uppercase text-gray-500 bg-gray-50">
+              <thead className="sticky top-0 text-sm font-semibold uppercase text-gray-500 bg-gray-50">
                 <tr className="font-mono">
                   {header?.map((title) => (
                     <th
@@ -48,22 +47,17 @@ const Table = ({
                 {data?.map((rows, index) => {
                   return (
                     <tr key={index}>
-                      {Object.values(rows).map((val, index) => {
-                        if (
-                          columnsToShow.length > 0
-                            ? columnsToShow.includes(Object.keys(rows)[index])
-                            : []
+                      {columnsToShow.map((column) => {
+                        return (
+                          <td
+                            className={`p-2 whitespace-nowrap ${
+                              isNaN(rows[column]) ? "text-left" : "text-center"
+                            }`}
+                            key={rows[column] + column}
+                          >
+                            {rows[column]}
+                          </td>
                         )
-                          return (
-                            <td
-                              className={`p-2 whitespace-nowrap ${
-                                isNaN(val) ? "text-left" : "text-center"
-                              }`}
-                              key={index}
-                            >
-                              {val}
-                            </td>
-                          )
                       })}
                       {
                         <td key={rows.id}>
