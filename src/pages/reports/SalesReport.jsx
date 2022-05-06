@@ -140,13 +140,13 @@ const SalesReport = () => {
               withMaxHeight={true}
             />
           </div>
-          <div className="flex mx-2 mt-2 text-center">
+          <div className="flex mx-2 mt-2">
             <CSVLink
               data={csvData.nonTaxPayer}
               uFEFF={false}
               enclosingCharacter=""
               separator=";"
-              className="button"
+              className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.nonTaxPayer.length === 0) {
                   toast.error("No hay datos para descargar")
@@ -164,7 +164,7 @@ const SalesReport = () => {
               uFEFF={false}
               enclosingCharacter=""
               separator=";"
-              className="button"
+              className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.taxPayer.length === 0) {
                   toast.error("No hay datos para descargar")
@@ -182,7 +182,7 @@ const SalesReport = () => {
               uFEFF={false}
               enclosingCharacter=""
               separator=";"
-              className="button"
+              className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.voidedSales.length === 0) {
                   toast.error("No hay datos para descargar")

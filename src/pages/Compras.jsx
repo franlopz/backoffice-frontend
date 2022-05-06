@@ -464,7 +464,7 @@ const Compras = () => {
                 />
               </div>
             </Collapsible>
-            <div className="flex flex-row gap-2 w-full">
+            <div className="flex flex-row gap-2 w-full h-max-20">
               <button className="button">Agregar a tabla</button>
               <button
                 type="button"
