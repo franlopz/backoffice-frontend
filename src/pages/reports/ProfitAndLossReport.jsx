@@ -1,16 +1,16 @@
-import React, { useRef, useState } from "react"
-import TableBody from "../../components/reports/TableBody"
-import TableHeader from "../../components/reports/TableHeader"
-import TableRow from "../../components/reports/TableRow"
-import Sidebar from "../../components/sidebar/Sidebar"
-import usePLReport from "../../hooks/usePLReport"
-import RefreshButton from "../../components/refreshButton/RefreshButton"
-import InputDatePicker from "../../components/InputDatePicker"
-import "react-datepicker/dist/react-datepicker.css"
-import DatePicker, { registerLocale } from "react-datepicker"
-import es from "date-fns/locale/es"
-import { round } from "../../helpers/round"
-registerLocale("es", es)
+import React, { useRef, useState } from 'react'
+import TableBody from '../../components/reports/TableBody'
+import TableHeader from '../../components/reports/TableHeader'
+import TableRow from '../../components/reports/TableRow'
+import Sidebar from '../../components/sidebar/Sidebar'
+import usePLReport from '../../hooks/usePLReport'
+import RefreshButton from '../../components/refreshButton/RefreshButton'
+import InputDatePicker from '../../components/InputDatePicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker, { registerLocale } from 'react-datepicker'
+import es from 'date-fns/locale/es'
+import { round } from '../../helpers/round'
+registerLocale('es', es)
 
 const ProfitAndLoss = () => {
   const [data, getData] = usePLReport()
@@ -61,7 +61,7 @@ const ProfitAndLoss = () => {
               <DatePicker
                 locale="es"
                 todayButton="Hoy"
-                customInput={<InputDatePicker ref={ref} labeltext={"Fecha"} />}
+                customInput={<InputDatePicker ref={ref} labeltext={'Fecha'} />}
                 selectsRange={true}
                 peekNextMonth
                 showMonthDropdown
@@ -74,6 +74,8 @@ const ProfitAndLoss = () => {
               />
             </div>
             <RefreshButton
+              startDate={startDate}
+              endDate={endDate}
               onClick={() => getData({ start: startDate, finish: endDate })}
             />
           </div>
@@ -114,6 +116,7 @@ const ProfitAndLoss = () => {
                 value={round(
                   data?.gastos?.Salario +
                     data?.gastos?.Propina +
+                    data?.tickets?.propina +
                     data?.gastos?.ISSS,
                   2
                 )}

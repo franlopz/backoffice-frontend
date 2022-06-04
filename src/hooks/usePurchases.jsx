@@ -8,7 +8,7 @@ import { round } from "../helpers/round"
 const API_URL = (start, finish) =>
   `${URL_PURCHASES}?start=${start}&finish=${finish}`
 
-const usePurchases = () => {
+const usePurchases = (executeUseEffect = true) => {
   const [purchases, setPurchases] = useState([])
   const [user, uuid, checkSessionStatus] = useToken()
   const [filters, setFilters] = useState({
@@ -79,14 +79,14 @@ const usePurchases = () => {
       const data = await response.json()
       toast.dismiss(toadLoading)
       setPurchases(data)
-    } catch (err) {
+    } catch (e) {
       toast.dismiss()
-      toast.error("Error al obtener registros: " + err)
+      toast.error("Error al obtener registros")
     }
   }
 
   useEffect(() => {
-    if (user) {
+    if (user && executeUseEffect) {
       getPurchases({ start: Date.now(), end: Date.now() })
     }
   }, [user])
@@ -165,9 +165,9 @@ const usePurchases = () => {
       if (data > 0) {
         toast.success("Registro eliminado", { id: "deleted" })
       }
-    } catch (err) {
+    } catch (e) {
       toast.dismiss()
-      toast.error("Error al eliminar registro: " + err)
+      toast.error("Error al eliminar registro")
     }
   }
 
@@ -200,7 +200,7 @@ const usePurchases = () => {
         }
       } catch (err) {
         toast.dismiss()
-        toast.error("Error al guardar compras: " + err, {
+        toast.error("Error al guardar compras", {
           id: "purchasesError",
         })
       }

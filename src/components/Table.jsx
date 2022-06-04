@@ -1,27 +1,24 @@
-import React from "react"
-import useTableData from "../hooks/useTableData"
+import React from 'react'
+import useTableData from '../hooks/useTableData'
 
 const Table = ({
   data = [],
-  title = "",
+  title = '',
   square = true,
   showHeader = null,
   columnsToShow = [],
   withMaxHeight = false,
-  setRows,
-  activateActions = false,
   buttons = [],
-  heigth = "h-full",
+  heigth = 'h-full',
 }) => {
   const [header] = useTableData({ initialData: data, showHeader: showHeader })
 
   return (
-    // <div className={` m-2 bg-white ${withMaxHeight ? '' : `aspect-square ${square ? 'md:aspect-square' : 'md:aspect-[2/1]'}`}`}>
     <div
       className={` m-2 bg-white ${
         withMaxHeight
-          ? "h-full"
-          : `aspect-square ${square ? "md:aspect-square" : "md:aspect-[2/1]"}`
+          ? 'h-full'
+          : `aspect-square ${square ? 'sm:aspect-square' : 'sm:aspect-[2/1]'}`
       }`}
     >
       <div className={`flex flex-col shadow-lg rounded-lg  border ${heigth}`}>
@@ -51,7 +48,7 @@ const Table = ({
                         return (
                           <td
                             className={`p-2 whitespace-nowrap ${
-                              isNaN(rows[column]) ? "text-left" : "text-center"
+                              isNaN(rows[column]) ? 'text-left' : 'text-center'
                             }`}
                             key={rows[column] + column}
                           >

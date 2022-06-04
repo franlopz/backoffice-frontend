@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
-import toast from "react-hot-toast"
-import formatDate, { formatDateES } from "../helpers/formatDate"
-import { URL_NON_TAX_SALES, URL_TICKETS } from "../services/api"
-import useToken from "./useToken"
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import formatDate, { formatDateES } from '../helpers/formatDate'
+import { URL_NON_TAX_SALES, URL_TICKETS } from '../services/api'
+import useToken from './useToken'
 
 const API_URL = (start, finish, URL) => `${URL}?start=${start}&finish=${finish}`
 const initialFilters = {
@@ -26,12 +26,12 @@ const useSales = () => {
   const [filteredData, setFilteredData] = useState(sales)
 
   const requestGetOptions = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST,GET",
-      Authorization: user?.token_type + " " + user?.access_token,
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST,GET',
+      Authorization: user?.token_type + ' ' + user?.access_token,
       uuid: uuid,
     },
   }
@@ -41,7 +41,7 @@ const useSales = () => {
     const endDate = formatDate(end)
 
     try {
-      const toastLoading = toast.loading("Cargando...", { id: "loading" })
+      const toastLoading = toast.loading('Cargando...', { id: 'loading' })
       const response = await fetch(
         API_URL(startDate, endDate, URL_TICKETS),
         requestGetOptions
@@ -52,7 +52,7 @@ const useSales = () => {
       toast.dismiss(toastLoading)
     } catch (err) {
       toast.dismiss()
-      toast.error("Error al obtener registros: " + err)
+      toast.error('Error al obtener registros')
     }
   }
 
@@ -60,7 +60,7 @@ const useSales = () => {
     const startDate = formatDate(start)
     const endDate = formatDate(end)
     try {
-      const toastLoading = toast.loading("Cargando...", { id: "loading" })
+      const toastLoading = toast.loading('Cargando...', { id: 'loading' })
       const response = await fetch(
         API_URL(startDate, endDate, URL_NON_TAX_SALES),
         requestGetOptions
@@ -91,7 +91,7 @@ const useSales = () => {
       toast.dismiss(toastLoading)
     } catch (err) {
       toast.dismiss()
-      toast.error("Error al obtener registros: " + err)
+      toast.error('Error al obtener registros: ' + err)
     }
   }
 
@@ -163,7 +163,7 @@ const useSales = () => {
       setFiltersToApply({ ...filtersToApply, [source]: [] })
     }
 
-    if (source !== "voided") {
+    if (source !== 'voided') {
       e.map((item) => {
         array.push(item.value)
         setFiltersToApply({ ...filtersToApply, [source]: array })
@@ -207,10 +207,10 @@ const useSales = () => {
     })
 
     let voidedFilter = toFilter.filter((item) => {
-      if (item.anulado === "Si" && filtersToApply.voided) {
+      if (item.anulado === 'Si' && filtersToApply.voided) {
         return true
       }
-      if (item.anulado === "" && filtersToApply.voided == false) {
+      if (item.anulado === '' && filtersToApply.voided == false) {
         return true
       }
     })

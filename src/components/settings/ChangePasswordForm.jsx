@@ -1,12 +1,12 @@
-import React, { useState } from "react"
-import useModifyUser from "../../hooks/useModifyUser"
-import Input from "../compras/Input"
-import Container from "../Container"
+import React, { useState } from 'react'
+import useModifyUser from '../../hooks/useModifyUser'
+import Input from '../compras/Input'
+import Container from '../Container'
 
 const initialFormData = {
-  password: "",
-  newpassword: "",
-  passwordconfirm: "",
+  password: '',
+  newpassword: '',
+  passwordconfirm: '',
 }
 
 const ChangePasswordForm = () => {
@@ -29,12 +29,12 @@ const ChangePasswordForm = () => {
   return (
     <Container title="Cambiar contraseña">
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-full p-4">
+        <div className="flex flex-col mx-4 items-center justify-center">
+          <div className="w-full">
             <Input
               required
               labeltext="Contraseña actual"
-              value={formData.password}
+              value={formData?.password}
               type="password"
               name="password"
               autoComplete="off"
@@ -43,7 +43,7 @@ const ChangePasswordForm = () => {
             <Input
               required
               labeltext="Contraseña nueva"
-              value={formData.newpassword}
+              value={formData?.newpassword}
               type="password"
               name="newpassword"
               autoComplete="off"
@@ -52,7 +52,7 @@ const ChangePasswordForm = () => {
             <Input
               required
               labeltext="Confirmación de contraseña"
-              value={formData.passwordconfirm}
+              value={formData?.passwordconfirm}
               type="password"
               name="passwordconfirm"
               autoComplete="off"

@@ -1,107 +1,107 @@
-import React, { useState, useRef } from "react"
-import InputDatePicker from "../components/InputDatePicker"
-import DatePicker from "react-datepicker"
-import Input from "../components/compras/Input"
-import Select from "../components/compras/Select"
-import Sidebar from "../components/sidebar/Sidebar"
-import { RiAddCircleLine } from "react-icons/ri"
-import { round } from "../helpers/round"
-import Collapsible from "../components/Collapsible"
-import Dialog from "../components/Dialog"
-import Table from "../components/Table"
-import formatDate from "../helpers/formatDate"
-import toast from "react-hot-toast"
-import useSuppliers from "../hooks/useSuppliers"
-import usePurchases from "../hooks/usePurchases"
-import Purchases from "../components/compras/Purchases"
+import React, { useState, useRef } from 'react'
+import InputDatePicker from '../components/InputDatePicker'
+import DatePicker from 'react-datepicker'
+import Input from '../components/compras/Input'
+import Select from '../components/compras/Select'
+import Sidebar from '../components/sidebar/Sidebar'
+import { RiAddCircleLine } from 'react-icons/ri'
+import { round } from '../helpers/round'
+import Collapsible from '../components/Collapsible'
+import Dialog from '../components/Dialog'
+import Table from '../components/Table'
+import formatDate from '../helpers/formatDate'
+import toast from 'react-hot-toast'
+import useSuppliers from '../hooks/useSuppliers'
+import usePurchases from '../hooks/usePurchases'
+import Purchases from '../components/compras/Purchases'
 
 const docTypes = {
-  "Consumidor Final": 0,
-  "Crédito Fiscal": 3,
-  "Nota de Crédito": 5,
-  "Nota de Débito": 6,
-  "Factura de Exportación": 11,
-  "Declaración de Mercancía": 12,
-  "Mandamiento de Ingreso": 13,
+  'Consumidor Final': 0,
+  'Crédito Fiscal': 3,
+  'Nota de Crédito': 5,
+  'Nota de Débito': 6,
+  'Factura de Exportación': 11,
+  'Declaración de Mercancía': 12,
+  'Mandamiento de Ingreso': 13,
 }
 
 const docCategories = {
-  "Impreso por imprenta o tiquetes": 1,
-  "Formulario único": 2,
+  'Impreso por imprenta o tiquetes': 1,
+  'Formulario único': 2,
   Otro: 3,
-  "Documento tributario electronico (DTE)": 4,
+  'Documento tributario electronico (DTE)': 4,
 }
 
 const tributaryDoc = {
-  "NRC/NIT": 0,
+  'NRC/NIT': 0,
   DUI: 1,
 }
 
 const initialFormData = {
-  docType: "Consumidor Final",
-  docCategorie: "Impreso por imprenta o tiquetes",
-  description: "",
-  nrc: "",
-  supplier: "",
-  compra: "",
-  iva: "",
-  dui: "",
+  docType: 'Consumidor Final',
+  docCategorie: 'Impreso por imprenta o tiquetes',
+  description: '',
+  nrc: '',
+  supplier: '',
+  compra: '',
+  iva: '',
+  dui: '',
   comInEx: 0,
   intExNoSuj: 0,
   imExNoSuj: 0,
   inGraBie: 0,
   imGravBie: 0,
   imGravSer: 0,
-  duinit: "NRC/NIT",
-  supplierName: "",
+  duinit: 'NRC/NIT',
+  supplierName: '',
 }
 
 const tableHeader = [
-  "Fecha",
-  "Documento",
-  "Tipo",
-  "Descripción/Referencia",
-  "NRC",
-  "Proveedor",
-  "Total",
-  "IVA",
-  "DUI",
-  "Compras internas exentas",
-  "Internaciones exentas y/o no sujetas",
-  "importaciones exentas y/o no sujetas",
-  "Internaciones gravadas de bienes",
-  "Importaciones gravadas de bienes",
-  "Importaciones gravadas de servicios",
-  "Acción",
+  'Fecha',
+  'Documento',
+  'Tipo',
+  'Descripción/Referencia',
+  'NRC',
+  'Proveedor',
+  'Total',
+  'IVA',
+  'DUI',
+  'Compras internas exentas',
+  'Internaciones exentas y/o no sujetas',
+  'importaciones exentas y/o no sujetas',
+  'Internaciones gravadas de bienes',
+  'Importaciones gravadas de bienes',
+  'Importaciones gravadas de servicios',
+  'Acción',
 ]
 
 const tableColumns = [
-  "fecha",
-  "documento",
-  "tipo",
-  "referencia",
-  "nrc",
-  "nombre",
-  "compra",
-  "iva",
-  "dui",
-  "comInEx",
-  "intExNoSuj",
-  "imExNoSuj",
-  "inGraBie",
-  "imGravBie",
-  "imGravSer",
+  'fecha',
+  'documento',
+  'tipo',
+  'referencia',
+  'nrc',
+  'nombre',
+  'compra',
+  'iva',
+  'dui',
+  'comInEx',
+  'intExNoSuj',
+  'imExNoSuj',
+  'inGraBie',
+  'imGravBie',
+  'imGravSer',
 ]
 
 const Compras = () => {
   const [suppliers, addSupplier] = useSuppliers()
-  const { addPurchases } = usePurchases()
+  const { addPurchases } = usePurchases(false)
   const [formData, setFormData] = useState(initialFormData)
   const [startDate, setStartDate] = useState(new Date())
   const [isSupplierDialogOpen, setSupplierDialogOpen] = useState(false)
   const [isPurchasesDialogOpen, setPurchasesDialogOpen] = useState(false)
   const [transactionsList, setTransactionsList] = useState(
-    JSON.parse(localStorage.getItem("compras") ?? "[]")
+    JSON.parse(localStorage.getItem('compras') ?? '[]')
   )
   const ref = useRef()
 
@@ -114,32 +114,32 @@ const Compras = () => {
       [e.target.name]: e.target.value,
     }))
 
-    if (e.target.name === "nrc") {
+    if (e.target.name === 'nrc') {
       const supplierArray = suppliers.filter(
         (supplier) => e.target.value === supplier.nrc
       )
       const supplierName = supplierArray[0]?.nombre
       if (supplierName)
         return setFormData((state) => ({ ...state, supplier: supplierName }))
-      setFormData((state) => ({ ...state, supplier: "" }))
+      setFormData((state) => ({ ...state, supplier: '' }))
     }
-    if (e.target.name === "duinit") {
+    if (e.target.name === 'duinit') {
       return setFormData((state) => ({
         ...state,
         [e.target.name]: e.target.value,
-        dui: "",
-        nrc: "",
+        dui: '',
+        nrc: '',
       }))
     }
 
-    if (e.target.name === "docType") {
+    if (e.target.name === 'docType') {
       return setFormData(() => ({
         ...initialFormData,
         [e.target.name]: e.target.value,
       }))
     }
 
-    if (e.target.name === "compra") {
+    if (e.target.name === 'compra') {
       return setFormData((state) => ({
         ...state,
         [e.target.name]: e.target.value,
@@ -169,8 +169,8 @@ const Compras = () => {
       supplierName,
     } = formData
 
-    if (docType !== "Consumidor Final" && supplier === "") {
-      return toast.error("Registra proveedor antes", { id: "noSupplier" })
+    if (docType !== 'Consumidor Final' && supplier === '') {
+      return toast.error('Registra proveedor antes', { id: 'noSupplier' })
     }
     let data = {
       id: 0,
@@ -196,14 +196,14 @@ const Compras = () => {
       guardado: new Date().toISOString(),
     }
     setTransactionsList((state) => [...state, data])
-    localStorage.setItem("compras", JSON.stringify([...transactionsList, data]))
-    setFormData((state) => ({ ...state, compra: "", iva: "" }))
+    localStorage.setItem('compras', JSON.stringify([...transactionsList, data]))
+    setFormData((state) => ({ ...state, compra: '', iva: '' }))
   }
 
   const removeRow = (id) => {
     const filteredRows = transactionsList.filter((d, i) => i !== id)
     setTransactionsList(filteredRows)
-    localStorage.setItem("compras", JSON.stringify(filteredRows))
+    localStorage.setItem('compras', JSON.stringify(filteredRows))
   }
 
   return (
@@ -216,7 +216,7 @@ const Compras = () => {
         isOpen={isSupplierDialogOpen}
       >
         <div className="flex flex-col">
-          {formData.duinit === "DUI" ? (
+          {formData.duinit === 'DUI' ? (
             <Input
               required
               labeltext="DUI"
@@ -295,7 +295,7 @@ const Compras = () => {
               <DatePicker
                 locale="es"
                 todayButton="Hoy"
-                customInput={<InputDatePicker ref={ref} labeltext={"Fecha"} />}
+                customInput={<InputDatePicker ref={ref} labeltext={'Fecha'} />}
                 selected={startDate}
                 peekNextMonth
                 useShortMonthInDropdown
@@ -306,13 +306,13 @@ const Compras = () => {
               <Input
                 required
                 labeltext={
-                  formData.docType !== "Consumidor Final"
-                    ? "Número de documento"
-                    : "Descripción"
+                  formData.docType !== 'Consumidor Final'
+                    ? 'Número de documento'
+                    : 'Descripción'
                 }
                 value={formData.description}
                 type={
-                  formData.docType !== "Consumidor Final" ? "number" : "text"
+                  formData.docType !== 'Consumidor Final' ? 'number' : 'text'
                 }
                 name="description"
                 autoComplete="off"
@@ -322,7 +322,7 @@ const Compras = () => {
 
             <Select
               labeltext="Documento tributario"
-              hidden={formData.docType === "Consumidor Final" ? true : false}
+              hidden={formData.docType === 'Consumidor Final' ? true : false}
               value={formData.duinit}
               name="duinit"
               onChange={handleChange}
@@ -331,16 +331,16 @@ const Compras = () => {
 
             <div
               className={`${
-                formData.docType === "Consumidor Final"
-                  ? ""
-                  : "md:grid md:grid-cols-2 md:gap-2"
+                formData.docType === 'Consumidor Final'
+                  ? ''
+                  : 'md:grid md:grid-cols-2 md:gap-2'
               }`}
             >
-              {formData.duinit === "DUI" ? (
+              {formData.duinit === 'DUI' ? (
                 <Input
                   required
                   hidden={
-                    formData.docType === "Consumidor Final" ? true : false
+                    formData.docType === 'Consumidor Final' ? true : false
                   }
                   labeltext="DUI"
                   value={formData.dui}
@@ -353,7 +353,7 @@ const Compras = () => {
                 <Input
                   required
                   hidden={
-                    formData.docType === "Consumidor Final" ? true : false
+                    formData.docType === 'Consumidor Final' ? true : false
                   }
                   labeltext="NIT o NRC"
                   value={formData.nrc}
@@ -372,10 +372,10 @@ const Compras = () => {
                   name="supplier"
                   autoComplete="off"
                   onChange={handleChange}
-                  readOnly={formData.docType !== "Consumidor Final"}
+                  readOnly={formData.docType !== 'Consumidor Final'}
                 />
-                {formData.docType !== "Consumidor Final" &&
-                  formData.supplier === "" && (
+                {formData.docType !== 'Consumidor Final' &&
+                  formData.supplier === '' && (
                     <button
                       type="button"
                       onClick={() => setSupplierDialogOpen((state) => !state)}
@@ -411,7 +411,7 @@ const Compras = () => {
             </div>
             <Collapsible
               title="Más campos"
-              hidden={formData.docType === "Consumidor Final" ? true : false}
+              hidden={formData.docType === 'Consumidor Final' ? true : false}
             >
               <div className="md:grid md:grid-cols-2 gap-x-2">
                 <Input
@@ -464,7 +464,7 @@ const Compras = () => {
                 />
               </div>
             </Collapsible>
-            <div className="flex flex-row gap-2 w-full h-max-20">
+            <div className="flex flex-row gap-2 w-full mt-2">
               <button className="button">Agregar a tabla</button>
               <button
                 type="button"
@@ -489,7 +489,7 @@ const Compras = () => {
           </form>
           {Array.isArray(transactionsList) && transactionsList.length > 0 && (
             <Table
-              title="Transacciones"
+              title="TRANSACCIONES"
               square={false}
               data={transactionsList}
               showHeader={tableHeader}

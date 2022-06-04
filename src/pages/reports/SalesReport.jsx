@@ -1,50 +1,50 @@
-import React, { useRef, useState } from "react"
-import Sidebar from "../../components/sidebar/Sidebar"
-import "react-datepicker/dist/react-datepicker.css"
-import DatePicker, { registerLocale } from "react-datepicker"
-import es from "date-fns/locale/es"
-import InputDatePicker from "../../components/InputDatePicker"
-import RefreshButton from "../../components/refreshButton/RefreshButton"
-import Table from "../../components/Table"
-import useSales from "../../hooks/useSales"
-import Select from "react-select"
-import { CSVLink } from "react-csv"
-import { formatDateDashES } from "../../helpers/formatDate"
-import toast from "react-hot-toast"
-registerLocale("es", es)
+import React, { useRef, useState } from 'react'
+import Sidebar from '../../components/sidebar/Sidebar'
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker, { registerLocale } from 'react-datepicker'
+import es from 'date-fns/locale/es'
+import InputDatePicker from '../../components/InputDatePicker'
+import RefreshButton from '../../components/refreshButton/RefreshButton'
+import Table from '../../components/Table'
+import useSales from '../../hooks/useSales'
+import Select from 'react-select'
+import { CSVLink } from 'react-csv'
+import { formatDateDashES } from '../../helpers/formatDate'
+import toast from 'react-hot-toast'
+registerLocale('es', es)
 
 const tableHeader = [
-  "Fecha",
-  "Hora",
-  "Tipo",
-  "Documento",
-  "Correlativo",
-  "total",
-  "Impuesto",
-  "Descuento",
-  "Propina",
-  "Domicilio",
-  "Tipo de doc",
-  "Serie",
-  "Resolución",
-  "Vendedor",
+  'Fecha',
+  'Hora',
+  'Tipo',
+  'Documento',
+  'Correlativo',
+  'total',
+  'Impuesto',
+  'Descuento',
+  'Propina',
+  'Domicilio',
+  'Tipo de doc',
+  'Serie',
+  'Resolución',
+  'Vendedor',
 ]
 
 const tableColumns = [
-  "fecha",
-  "hora",
-  "tipo",
-  "documento",
-  "correlativo",
-  "total",
-  "tax",
-  "descuentoTotal",
-  "propina",
-  "servicioDomicilio",
-  "docTipo",
-  "docSerie",
-  "numResolucion",
-  "mesero",
+  'fecha',
+  'hora',
+  'tipo',
+  'documento',
+  'correlativo',
+  'total',
+  'tax',
+  'descuentoTotal',
+  'propina',
+  'servicioDomicilio',
+  'docTipo',
+  'docSerie',
+  'numResolucion',
+  'mesero',
 ]
 
 const SalesReport = () => {
@@ -64,7 +64,7 @@ const SalesReport = () => {
               <DatePicker
                 locale="es"
                 todayButton="Hoy"
-                customInput={<InputDatePicker ref={ref} labeltext={"Fecha"} />}
+                customInput={<InputDatePicker ref={ref} labeltext={'Fecha'} />}
                 selectsRange={true}
                 peekNextMonth
                 showMonthDropdown
@@ -77,6 +77,8 @@ const SalesReport = () => {
               />
             </div>
             <RefreshButton
+              startDate={startDate}
+              endDate={endDate}
               onClick={() => {
                 getSales({ start: startDate, end: endDate })
                 getCsvSales({ start: startDate, end: endDate })
@@ -91,14 +93,14 @@ const SalesReport = () => {
                 placeholder="Documento"
                 options={filters.document}
                 isMulti
-                onChange={(e) => filterData(e, "document")}
+                onChange={(e) => filterData(e, 'document')}
               />
               <Select
                 className="w-full"
                 placeholder="Tipo"
                 options={filters.type}
                 isMulti
-                onChange={(e) => filterData(e, "type")}
+                onChange={(e) => filterData(e, 'type')}
               />
               <div className="w-52">
                 <label>
@@ -107,7 +109,7 @@ const SalesReport = () => {
                     type="checkbox"
                     className="ml-1"
                     checked={filters.voided}
-                    onChange={(e) => filterData(e, "voided")}
+                    onChange={(e) => filterData(e, 'voided')}
                   />
                 </label>
               </div>
@@ -118,20 +120,20 @@ const SalesReport = () => {
                 placeholder="Vendedor"
                 options={filters.seller}
                 isMulti
-                onChange={(e) => filterData(e, "seller")}
+                onChange={(e) => filterData(e, 'seller')}
               />
               <Select
                 className="w-full"
                 placeholder="Tipo de doc"
                 options={filters.docType}
                 isMulti
-                onChange={(e) => filterData(e, "docType")}
+                onChange={(e) => filterData(e, 'docType')}
               />
             </div>
           </div>
           <div className="max-h-[68%]">
             <Table
-              title="Lista de ventas"
+              title="LISTA DE VENTAS"
               square={false}
               data={filteredData}
               showHeader={tableHeader}
@@ -140,7 +142,7 @@ const SalesReport = () => {
               withMaxHeight={true}
             />
           </div>
-          <div className="flex mx-2 mt-2">
+          <div className="flex flex-col gap-1 mx-2 mt-4 sm:flex-row">
             <CSVLink
               data={csvData.nonTaxPayer}
               uFEFF={false}
@@ -149,7 +151,7 @@ const SalesReport = () => {
               className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.nonTaxPayer.length === 0) {
-                  toast.error("No hay datos para descargar")
+                  toast.error('No hay datos para descargar')
                   return false
                 }
               }}
@@ -157,7 +159,7 @@ const SalesReport = () => {
                 startDate
               )}_${formatDateDashES(endDate)}`}
             >
-              Descargar anexo ventas a consumidor final
+              Descargar ventas a consumidor final
             </CSVLink>
             <CSVLink
               data={csvData.taxPayer}
@@ -167,7 +169,7 @@ const SalesReport = () => {
               className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.taxPayer.length === 0) {
-                  toast.error("No hay datos para descargar")
+                  toast.error('No hay datos para descargar')
                   return false
                 }
               }}
@@ -185,7 +187,7 @@ const SalesReport = () => {
               className="button flex flex-col justify-center text-center"
               onClick={() => {
                 if (csvData.voidedSales.length === 0) {
-                  toast.error("No hay datos para descargar")
+                  toast.error('No hay datos para descargar')
                   return false
                 }
               }}
