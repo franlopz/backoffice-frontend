@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import RefreshButton from '../refreshButton/RefreshButton'
-import Table from '../Table'
+import Table from '../table/Table'
 registerLocale('es', es)
 
 const tableHeader = [

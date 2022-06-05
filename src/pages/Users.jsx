@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Sidebar from '../components/sidebar/Sidebar'
-import Table from '../components/Table'
+import Table from '../components/table/Table'
 import ModifyUser from '../components/users/ModifyUser'
 import NewBusiness from '../components/users/NewBusiness'
 import NewUser from '../components/users/NewUser'

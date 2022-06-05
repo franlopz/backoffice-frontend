@@ -4,7 +4,7 @@ import useExpenses from '../../hooks/useExpenses'
 import InputDatePicker from '../InputDatePicker'
 import es from 'date-fns/locale/es'
 import RefreshButton from '../refreshButton/RefreshButton'
-import Table from '../Table'
+import Table from '../table/Table'
 registerLocale('es', es)
 
 const tableHeader = ['Fecha', 'Categoría', 'Monto', 'Descripción', 'Acciones']

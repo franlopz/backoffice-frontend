@@ -6,7 +6,7 @@ import Dialog from '../components/Dialog'
 import ExpensesDialog from '../components/expenses/ExpensesDialog'
 import InputDatePicker from '../components/InputDatePicker'
 import Sidebar from '../components/sidebar/Sidebar'
-import Table from '../components/Table'
+import Table from '../components/table/Table'
 import formatDate from '../helpers/formatDate'
 import useExpenses from '../hooks/useExpenses'
 

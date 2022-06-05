@@ -7,7 +7,7 @@ registerLocale('es', es)
 import InputDatePicker from '../../components/InputDatePicker'
 import RefreshButton from '../../components/refreshButton/RefreshButton'
 import usePurchases from '../../hooks/usePurchases'
-import Table from '../../components/Table'
+import Table from '../../components/table/Table'
 import Select from 'react-select'
 import { CSVLink } from 'react-csv'
 import formatDate, { formatDateDashES } from '../../helpers/formatDate'
@@ -130,7 +130,6 @@ const PurchaseReport = () => {
               data={filteredData}
               showHeader={tableHeader}
               columnsToShow={tableColumns}
-              activateActions={true}
               withMaxHeight={true}
             />
           </div>

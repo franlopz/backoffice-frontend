@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js'
 import useFetchDashboard from '../hooks/useFetchDashboard'
-import Table from '../components/Table'
+import Table from '../components/table/Table'
 import formatObjChart from '../helpers/formatObjChart'
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker'
 import es from 'date-fns/locale/es'
