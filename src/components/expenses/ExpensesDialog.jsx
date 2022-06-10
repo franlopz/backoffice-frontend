@@ -7,7 +7,7 @@ import RefreshButton from '../refreshButton/RefreshButton'
 import Table from '../table/Table'
 registerLocale('es', es)
 
-const tableHeader = ['Fecha', 'Categoría', 'Monto', 'Descripción', 'Acciones']
+const tableHeader = ['Acciones', 'Fecha', 'Categoría', 'Monto', 'Descripción']
 
 const tableColumns = ['fecha', 'tipo', 'monto', 'descripcion']
 const ExpensesDialog = () => {
@@ -16,8 +16,8 @@ const ExpensesDialog = () => {
   const [startDate, endDate] = dateRange
   const ref = useRef()
 
-  const deleteFromDB = async (id) => {
-    await deleteExpenses({ id })
+  const deleteFromDB = async ({ rowId }) => {
+    await deleteExpenses({ id: rowId })
     await getExpenses({ start: startDate, end: endDate })
   }
   return (
@@ -55,11 +55,11 @@ const ExpensesDialog = () => {
           columnsToShow={tableColumns}
           activateActions={true}
           buttons={[
-            (rows, index, id) => (
+            ({ rowId }) => (
               <button
-                key={id}
-                className="button-warning"
-                onClick={() => deleteFromDB(id)}
+                key={{ rowId }}
+                className="button-table-warning"
+                onClick={() => deleteFromDB({ rowId })}
               >
                 Borrar
               </button>

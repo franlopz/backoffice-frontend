@@ -1,11 +1,30 @@
 import React from 'react'
 
-const TableRows = ({ pageData, columnsToShow, buttons }) => {
+const TableRows = ({
+  pageData,
+  columnsToShow,
+  buttons = null,
+  page,
+  rowsPerPage,
+}) => {
   return (
     <>
       {pageData?.map((rows, index) => {
         return (
-          <tr key={index}>
+          <tr key={index} className="hover:bg-slate-200">
+            {buttons && (
+              <td key={rows.id} className="flex justify-center items-center">
+                {buttons.map((button) =>
+                  button({
+                    rows: rows,
+                    index: index,
+                    rowId: rows.id,
+                    page: page,
+                    rowsPerPage: rowsPerPage,
+                  })
+                )}
+              </td>
+            )}
             {columnsToShow.map((column) => {
               return (
                 <td
@@ -18,11 +37,6 @@ const TableRows = ({ pageData, columnsToShow, buttons }) => {
                 </td>
               )
             })}
-            {
-              <td key={rows.id}>
-                {buttons.map((button) => button(rows, index, rows?.id))}
-              </td>
-            }
           </tr>
         )
       })}

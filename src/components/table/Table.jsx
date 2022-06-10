@@ -12,7 +12,7 @@ const Table = ({
   showHeader = null,
   columnsToShow = [],
   withMaxHeight = false,
-  buttons = [],
+  buttons = null,
   heigth = 'h-full',
 }) => {
   const [
@@ -52,6 +52,8 @@ const Table = ({
                   columnsToShow={columnsToShow}
                   pageData={pageData}
                   buttons={buttons}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
                 />
               </tbody>
             </table>

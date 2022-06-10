@@ -89,7 +89,7 @@ const Users = () => {
                 (data) => (
                   <button
                     key="edit"
-                    className="button"
+                    className="button-table"
                     onClick={() => setUserToModify(data)}
                   >
                     Editar

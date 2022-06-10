@@ -21,12 +21,18 @@ const useTableData = ({ initialData, showHeader = null }) => {
   }, [])
 
   useEffect(() => {
-    if (page !== 1) {
-      setPage(1)
-    } else {
+    const newPagesNumber = Math.ceil(initialData.length / rowsPerPage)
+
+    if (page > newPagesNumber) {
+      if (page > 1) {
+        setPage(page - 1)
+      }
       getPagesNumber(initialData, rowsPerPage)
       sliceData(initialData, page, rowsPerPage)
-      setPage(1)
+    }
+    if (page <= newPagesNumber) {
+      getPagesNumber(initialData, rowsPerPage)
+      sliceData(initialData, page, rowsPerPage)
     }
     if (showHeader) return setHeader(showHeader)
     let headerResult = getHeader(initialData)

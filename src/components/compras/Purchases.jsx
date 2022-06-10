@@ -9,6 +9,7 @@ import Table from '../table/Table'
 registerLocale('es', es)
 
 const tableHeader = [
+  'Acciones',
   'Fecha',
   'Documento',
   'Tipo',
@@ -24,7 +25,6 @@ const tableHeader = [
   'Internaciones gravadas de bienes',
   'Importaciones gravadas de bienes',
   'Importaciones gravadas de servicios',
-  'Acciones',
 ]
 
 const tableColumns = [
@@ -51,8 +51,9 @@ const Purchases = () => {
   const [startDate, endDate] = dateRange
   const ref = useRef()
 
-  const deleteFromDB = async (id) => {
-    await deletePurchase({ id })
+  const deleteFromDB = async ({ rowId }) => {
+    console.log(rowId)
+    await deletePurchase({ id: rowId })
     await getPurchases({ start: startDate, end: endDate })
   }
 
@@ -91,11 +92,11 @@ const Purchases = () => {
           columnsToShow={tableColumns}
           activateActions={true}
           buttons={[
-            (rows, index, id) => (
+            ({ rowId }) => (
               <button
-                key={id}
-                className="button-warning"
-                onClick={() => deleteFromDB(id)}
+                key={rowId}
+                className="button-table-warning"
+                onClick={() => deleteFromDB({ rowId })}
               >
                 Borrar
               </button>

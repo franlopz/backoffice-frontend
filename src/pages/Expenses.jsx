@@ -29,7 +29,7 @@ const categories = [
   'Otro',
 ]
 
-const tableHeader = ['Fecha', 'Categoría', 'Monto', 'Descripción', 'Acciones']
+const tableHeader = ['Acciones', 'Fecha', 'Categoría', 'Monto', 'Descripción']
 
 const tableColumns = ['fecha', 'tipo', 'monto', 'descripcion']
 
@@ -67,8 +67,9 @@ const Expenses = () => {
     setFormData((state) => ({ ...state, amount: '', details: '' }))
   }
 
-  const removeRow = (id) => {
-    const filteredRows = transactionsList.filter((d, i) => i !== id)
+  const removeRow = ({ index, page, rowsPerPage }) => {
+    const itemToDelete = (page - 1) * rowsPerPage + index
+    const filteredRows = transactionsList.filter((d, i) => i !== itemToDelete)
     setTransactionsList(filteredRows)
     localStorage.setItem('gastos', JSON.stringify(filteredRows))
   }
@@ -160,11 +161,17 @@ const Expenses = () => {
                 columnsToShow={tableColumns}
                 withMaxHeight={true}
                 buttons={[
-                  (rows, index) => (
+                  ({ index, page, rowsPerPage }) => (
                     <button
                       key="delete"
-                      className="button"
-                      onClick={() => removeRow(index)}
+                      className="button-table"
+                      onClick={() =>
+                        removeRow({
+                          index: index,
+                          page: page,
+                          rowsPerPage: rowsPerPage,
+                        })
+                      }
                     >
                       Borrar
                     </button>

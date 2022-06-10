@@ -29,11 +29,32 @@
   word-wrap: break-word;
   cursor: pointer;
   color: rgb(255, 247, 237, 100);
-  
+
   /* max-height: 50px; */
 }
 
 .button:active{
+  background-color: #2b71f3;
+}
+
+.button-table{
+  font-size: 0.9rem;
+  vertical-align: top;
+  background-color: #5990f7;
+  border-width: 1px;
+  width: fit-content;
+  border-radius: 0.375rem;
+  margin-top: 2px;
+  padding: 0.25rem;
+  line-height: 1.25rem;
+  height: 30px;
+  word-wrap: break-word;
+  cursor: pointer;
+  color: rgb(255, 247, 237, 100);
+
+}
+
+.button-table:active{
   background-color: #2b71f3;
 }
 
@@ -50,6 +71,23 @@
 }
 
 .button-warning:active{
+  background-color: #f32828;
+}
+
+.button-table-warning{
+  background-color: #f75959;
+  border-width: 1px;
+  margin-top: 2px;
+  width: fit-content;
+  height: 30px;
+  border-radius: 0.375rem/* 6px */;
+  padding: 0rem 0.3rem;
+  font-size: 0.9rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
+  color: rgb(255, 247, 237, 100);
+}
+
+.button-table-warning:active{
   background-color: #f32828;
 }
 
