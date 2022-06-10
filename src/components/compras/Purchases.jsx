@@ -81,7 +81,7 @@ const Purchases = () => {
           onClick={() => getPurchases({ start: startDate, end: endDate })}
         />
       </div>
-      <div className="max-h-[85%]">
+      <div className="max-h-[85%] m-2">
         <Table
           title="LISTA DE COMPRAS"
           square={false}

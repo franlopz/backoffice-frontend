@@ -82,25 +82,27 @@ const Users = () => {
               </div>
             </div>
           </div>
-          <Table
-            title="REGISTROS"
-            buttons={[
-              (data) => (
-                <button
-                  key="edit"
-                  className="button"
-                  onClick={() => setUserToModify(data)}
-                >
-                  Editar
-                </button>
-              ),
-            ]}
-            square={false}
-            data={users}
-            showHeader={tableHeader}
-            columnsToShow={tableColumns}
-            withMaxHeight={true}
-          />
+          <div className="m-2">
+            <Table
+              title="REGISTROS"
+              buttons={[
+                (data) => (
+                  <button
+                    key="edit"
+                    className="button"
+                    onClick={() => setUserToModify(data)}
+                  >
+                    Editar
+                  </button>
+                ),
+              ]}
+              square={false}
+              data={users}
+              showHeader={tableHeader}
+              columnsToShow={tableColumns}
+              withMaxHeight={true}
+            />
+          </div>
         </div>
       </div>
     </div>

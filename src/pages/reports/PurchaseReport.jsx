@@ -123,7 +123,7 @@ const PurchaseReport = () => {
               onChange={(e) => filterData(e, 'type')}
             />
           </div>
-          <div className="max-h-[70%]">
+          <div className="max-h-[70%] m-2">
             <Table
               title="LISTA DE COMPRAS"
               square={false}
@@ -133,7 +133,7 @@ const PurchaseReport = () => {
               withMaxHeight={true}
             />
           </div>
-          <div className="flex justify-center items-center mx-2 mt-4 text-center">
+          <div className="flex justify-center items-center mx-2 pb-4 text-center">
             <CSVLink
               data={csvPurchases}
               uFEFF={false}

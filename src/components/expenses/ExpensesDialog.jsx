@@ -45,7 +45,7 @@ const ExpensesDialog = () => {
           onClick={() => getExpenses({ start: startDate, end: endDate })}
         />
       </div>
-      <div className="max-h-[85%]">
+      <div className="max-h-[85%] m-2">
         <Table
           title="LISTA DE GASTOS"
           square={false}

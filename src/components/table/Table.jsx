@@ -29,7 +29,7 @@ const Table = ({
   })
   return (
     <div
-      className={` m-2 bg-white ${
+      className={`bg-white ${
         withMaxHeight
           ? 'h-full'
           : `aspect-square ${square ? 'sm:aspect-square' : 'sm:aspect-[2/1]'}`

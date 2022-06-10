@@ -488,25 +488,27 @@ const Compras = () => {
             </div>
           </form>
           {Array.isArray(transactionsList) && transactionsList.length > 0 && (
-            <Table
-              title="TRANSACCIONES"
-              square={false}
-              data={transactionsList}
-              showHeader={tableHeader}
-              columnsToShow={tableColumns}
-              withMaxHeight={true}
-              buttons={[
-                (rows, index) => (
-                  <button
-                    key="delete"
-                    className="button"
-                    onClick={() => removeRow(index)}
-                  >
-                    Borrar
-                  </button>
-                ),
-              ]}
-            />
+            <div className="m-2">
+              <Table
+                title="TRANSACCIONES"
+                square={false}
+                data={transactionsList}
+                showHeader={tableHeader}
+                columnsToShow={tableColumns}
+                withMaxHeight={true}
+                buttons={[
+                  (rows, index) => (
+                    <button
+                      key="delete"
+                      className="button"
+                      onClick={() => removeRow(index)}
+                    >
+                      Borrar
+                    </button>
+                  ),
+                ]}
+              />
+            </div>
           )}
         </div>
       </div>

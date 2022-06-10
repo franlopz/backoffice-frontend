@@ -131,7 +131,7 @@ const SalesReport = () => {
               />
             </div>
           </div>
-          <div className="max-h-[68%]">
+          <div className="max-h-[68%] m-2">
             <Table
               title="LISTA DE VENTAS"
               square={false}
@@ -142,7 +142,7 @@ const SalesReport = () => {
               withMaxHeight={true}
             />
           </div>
-          <div className="flex flex-col gap-1 mx-2 mt-4 sm:flex-row">
+          <div className="flex flex-col gap-1 mx-2 pb-2 sm:flex-row">
             <CSVLink
               data={csvData.nonTaxPayer}
               uFEFF={false}

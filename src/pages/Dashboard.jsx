@@ -113,7 +113,7 @@ const Dashboard = () => {
               })}
             />
           </div>
-          <div className="relative w-full">
+          <div className="m-2">
             <Table
               data={dashboardData?.bypayment}
               title="DETALLE DE PAGOS"
@@ -148,7 +148,7 @@ const Dashboard = () => {
               })}
             />
           </div>
-          <div className="relative w-full">
+          <div className="m-2">
             <Table
               data={dashboardData?.byitem}
               square={false}
